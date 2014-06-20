@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clustering using the k-means algorithm</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Clustering using the k-means algorithm">
+  <meta name="author" content="Pieter Huibers">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Clustering using the k-means algorithm</h1>
+    <h2></h2>
+    <p>Pieter Huibers<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>K-Means Clustering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The Shiny app I wrote illustrates the use of the k-means clustering algorithm in R.</p>
+
+<p>K-means clustering works by identifying the center of a number of clusters (you can define how many clusters)
+and then assigns data point to each of these clusters based on the distance of the data point to a specific cluster
+center.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Data Point Generation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The data points are generated using the <code>rnorm()</code> function. The number of data points to be generated is taken from the
+first slider input in the Shiny app and passed as a parameter to the <code>rnorm()</code> function.</p>
+
+<pre><code class="r">x &lt;- rnorm(5)
+y &lt;- rnorm(5)
+data &lt;- data.frame(x,y)
+data
+</code></pre>
+
+<pre><code>##          x       y
+## 1 -0.14451 -0.2283
+## 2  1.43436 -0.2738
+## 3 -1.52019 -0.6193
+## 4  0.04922  1.4443
+## 5  1.11214 -0.2438
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Clustering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then the data points are clustered. The number of clusters to use is determined by the value of the second input slider
+in the Shiny app.</p>
+
+<pre><code class="r">fit &lt;- kmeans(data , 2)
+aggregate(data,by=list(fit$cluster),FUN=mean)
+data &lt;- data.frame(data, fit$cluster)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Usage</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To use the Shiny app go to <a href="https://pieterhuibers.shinyapps.io/clustering/">https://pieterhuibers.shinyapps.io/clustering/</a>. You can use the first slider to set the number of random data points that are generated. You can use the second slider to set the number of clusters in which the data points will be divided.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='K-Means Clustering'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data Point Generation'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Clustering'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Usage'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
